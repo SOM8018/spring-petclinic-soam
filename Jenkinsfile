@@ -5,9 +5,6 @@ pipeline{
         maven 'maven3'
         jdk 'JDK'
     }
-    environment{
-        VERSION="${env.BUILD_ID}"
-    }
     stages{
         stage("Build Maven"){
             steps{
@@ -52,14 +49,12 @@ pipeline{
                 echo "========executing Build Docker Image========"
                 sh 'pwd'
                 script{
-                    def CustomImage = docker.build('soamibm/petclinic:${VERSION}','./docker')
-                    // docker.withRegistry('https://registry.hub.docker.com','dockerhub_cred')
-                    sh '''
-                          
-                        docker login -u soamibm -p T#lstraibm12345 
-                        docker push soamibm/petclinic:${VERSION}
-
-                    '''
+                    def customImage = docker.build('soamibm/petclinic','./docker')
+                    docker.withRegistry('https://registry.hub.docker.com','dockerhub_cred')
+                    {
+                        customImage.push("${env.BUILD_NUMBER}")
+                    }
+                   
                 }
                 
             }
