@@ -50,7 +50,7 @@ pipeline{
                 sh 'pwd'
                 script{
                     def CustomImage = docker.build('soamibm/petclinic','./docker')
-                    docker.withRegistry('https://registry.hub.docker.com','dockerhub_cred')
+                    docker.withRegistry('https://hub.docker.com','dockerhub_cred')
                     CustomImage.push("${env.BUILD_NUMBER}")
                 }
                 
