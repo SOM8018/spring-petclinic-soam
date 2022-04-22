@@ -27,8 +27,32 @@ pipeline{
         }
         stage("Copy artifact"){
             steps{
-                echo "========executing Build Maven========"
+                echo "========executing Copy artifact========"
                 sh 'pwd'
+                sh 'cp -r target/*.jar docker'
+                
+            }
+            post{
+                always{
+                    echo "========always========"
+                }
+                success{
+                    echo "========A executed successfully========"
+                }
+                failure{
+                    echo "========A execution failed========"
+                }
+            }
+        }
+        stage("Build Docker Image"){
+            steps{
+                echo "========executing Build Docker Image========"
+                sh 'pwd'
+                script{
+                    def CustomImage = docker.build('soamibm/petclinic','./docker')
+                    docker.withRegistry('https://registry.hub.docker.com','dockerhub_cred')
+                    CustomImage.push("${env.BUILD_NUMBER}")
+                }
                 
             }
             post{
