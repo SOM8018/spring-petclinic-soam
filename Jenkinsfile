@@ -52,7 +52,7 @@ pipeline{
                 echo "========executing Build Docker Image========"
                 sh 'pwd'
                 script{
-                    def CustomImage = docker.build('soamibm/petclinic','./docker')
+                    def CustomImage = docker.build('soamibm/petclinic:${VERSION}','./docker')
                     // docker.withRegistry('https://registry.hub.docker.com','dockerhub_cred')
                     sh '''
                           
