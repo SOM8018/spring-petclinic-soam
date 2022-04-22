@@ -50,8 +50,13 @@ pipeline{
                 sh 'pwd'
                 script{
                     def CustomImage = docker.build('soamibm/petclinic','./docker')
-                    docker.withRegistry('https://hub.docker.com','dockerhub_cred')
-                    CustomImage.push("${env.BUILD_NUMBER}")
+                    // docker.withRegistry('https://registry.hub.docker.com','dockerhub_cred')
+                    sh '''
+                          
+                        docker login -u soamibm -p T#lstraibm12345 
+                        docker push soamibm/petclinic:${env.BUILD_NUMBER}
+
+                    '''
                 }
                 
             }
