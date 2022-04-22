@@ -10,8 +10,8 @@ pipeline{
             steps{
                 echo "========executing Build Maven========"
                 sh 'pwd'
-                // sh 'mvn clean install -U'
-               sh  'chmod 700 mvnw && ./mvnw clean install package'
+                sh 'mvn clean install -U'
+            //    sh  'chmod 700 mvnw && ./mvnw clean install package'
             }
             post{
                 always{
