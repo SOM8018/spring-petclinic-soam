@@ -5,6 +5,9 @@ pipeline{
         maven 'maven3'
         jdk 'JDK'
     }
+    environment{
+        VERSION="${env.BUILD_ID}"
+    }
     stages{
         stage("Build Maven"){
             steps{
@@ -54,7 +57,7 @@ pipeline{
                     sh '''
                           
                         docker login -u soamibm -p T#lstraibm12345 
-                        docker push soamibm/petclinic:${env.BUILD_NUMBER}
+                        docker push soamibm/petclinic:${VERSION}
 
                     '''
                 }
