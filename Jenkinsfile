@@ -28,7 +28,7 @@ pipeline{
             steps{
                 echo "========executing Build Maven========"
                 sh 'pwd'
-                sh 'mvn clean install package'
+                
             }
             post{
                 always{
