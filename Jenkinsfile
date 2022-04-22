@@ -10,7 +10,7 @@ pipeline{
             steps{
                 echo "========executing Build Maven========"
                 sh 'pwd'
-                sh 'sudo ./mvnw package'
+                sh 'mvn clean install '
             }
             post{
                 always{
